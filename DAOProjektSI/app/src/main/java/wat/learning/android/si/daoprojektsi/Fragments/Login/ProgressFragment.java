@@ -1,4 +1,4 @@
-package wat.learning.android.si.daoprojektsi.Fragments;
+package wat.learning.android.si.daoprojektsi.Fragments.Login;
 
 
 import android.animation.Animator;

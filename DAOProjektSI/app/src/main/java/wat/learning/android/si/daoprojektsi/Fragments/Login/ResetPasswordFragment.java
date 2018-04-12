@@ -1,4 +1,4 @@
-package wat.learning.android.si.daoprojektsi.Fragments;
+package wat.learning.android.si.daoprojektsi.Fragments.Login;
 
 
 import android.os.Bundle;
@@ -70,6 +70,7 @@ public class ResetPasswordFragment extends Fragment {
 
                 if (cancel) {
                     focusView.requestFocus();
+                    cancel = false;
                 } else {
                     ((LoginActivity) getActivity()).resetPassword(field2);
                 }

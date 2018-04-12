@@ -7,5 +7,6 @@ package wat.learning.android.si.daoprojektsi;
 public enum ActionCode {
     LOGIN,
     LOGOUT,
-    PASSWORD_RESET
+    PASSWORD_RESET,
+    GET_MEDIA, CREATE_CONNECTION
 }

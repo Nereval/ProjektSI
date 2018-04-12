@@ -1,4 +1,4 @@
-package wat.learning.android.si.daoprojektsi.Fragments;
+package wat.learning.android.si.daoprojektsi.Fragments.Login;
 
 
 import android.os.Bundle;
@@ -74,6 +74,7 @@ public class LoginFragment extends Fragment {
 
                     if (cancel) {
                         focusView.requestFocus();
+                        cancel = false;
                     } else {
                         ((LoginActivity) getActivity()).attemptLogin(email, password);
                     }
