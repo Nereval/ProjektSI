@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -45,7 +46,19 @@ public class OdczytLicznikowFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sMedia.setAdapter(adapter);
 
-        EditText odczyt = fragView.findViewById(R.id.wartosc_odczytu);
+        Button dodaj = (Button) fragView.findViewById(R.id.dodaj_odczyt);
+        dodaj.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                EditText odczytET = (EditText) fragView.findViewById(R.id.wartosc_odczytu);
+                EditText dataOdczytuET = (EditText) fragView.findViewById(R.id.data_odczytu);
+
+                String odczyt = odczytET.getText().toString();
+                String dataOdczytu = dataOdczytuET.getText().toString();
+
+                ((MainActivity)getActivity()).dodajOdczyt(odczyt, dataOdczytu);
+            }
+        });
 
         return fragView;
     }

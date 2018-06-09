@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import wat.learning.android.si.daoprojektsi.ActionCode;
 
@@ -31,12 +32,14 @@ public class DatabaseService extends IntentService implements Database  {
     private static final int PASSWORD_CHANGE_FAILED = 4;
     private static final int NEW_CONNECTION = 5;
     private static final int MEDIA_LIST = 6;
+    private static final int MIESIĘCZNE_OPŁATY = 7;
 
     private ResultReceiver resultReceiver;
     private Connection connection = null;
     private Statement stmt;
     private Bundle bundle;
     private ResultSet resultSet;
+    private int lokatorId;
 
     public DatabaseService() {
         super("DatabaseService");
@@ -57,7 +60,7 @@ public class DatabaseService extends IntentService implements Database  {
             connection = dbConn.getConnection();
         }
 
-        int lokatorId;
+        String miesiac, rok;
         switch(action_code){
             case LOGIN:
                 String email = intent.getStringExtra("email");
@@ -77,6 +80,11 @@ public class DatabaseService extends IntentService implements Database  {
             case GET_MEDIA:
                 GetMediaFromDb();
                 break;
+            case MIESIĘCZNE_OPŁATY:
+                lokatorId = intent.getIntExtra("id", 0);
+                miesiac = intent.getStringExtra("miesiac");
+                rok = intent.getStringExtra("rok");
+                pobierzMiesięczneOpłaty(miesiac, rok);
             default:
                 break;
         }
@@ -199,6 +207,37 @@ public class DatabaseService extends IntentService implements Database  {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void pobierzMiesięczneOpłaty(String miesiac, String rok) {
+        ArrayList<ArrayList<String>> miesieczneOplaty = new ArrayList<>();
+
+        String pobierzMiesięczneOpłątyQuery = "Select M.NazwaMedia AS Nazwa, C.CenaJednostkowa AS Cena, C.Jednostka AS Jednostka, O.WartoscOdczytu AS Odczyt, O.NrMieszkania AS Mieszkanie, DataOdczytu " +
+                "FROM Odczyt O, Cena C, Media M " +
+                "WHERE O.IdLokatora='" + lokatorId + "' AND O.IdCeny = C.IdCeny AND O.IdMedia = C.IdMedia AND C.IdMedia = M.IdMedia " +
+                "AND DATEPART(mm,DataOdczytu)='" + miesiac +"' AND DATEPART(yyyy, O.DataOdczytu)='" + rok + "';";
+
+        resultSet = getResultSet(pobierzMiesięczneOpłątyQuery);
+
+        try {
+            while (resultSet.next()){
+                ArrayList<String> temp = new ArrayList<>();
+                temp.add(resultSet.getString("Nazwa"));
+                temp.add(resultSet.getString("Cena"));
+                temp.add(resultSet.getString("Jednostka"));
+                temp.add(resultSet.getString("Odczyt"));
+                temp.add(resultSet.getString("Mieszkanie"));
+                temp.add(resultSet.getString("DataOdczytu"));
+                miesieczneOplaty.add(temp);
+            }
+            bundle = new Bundle();
+            bundle.putString("miesięczneOpłaty", new Gson().toJson(miesieczneOplaty));
+            resultReceiver.send(MIESIĘCZNE_OPŁATY, bundle);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 //    @Override

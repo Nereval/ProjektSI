@@ -42,6 +42,13 @@ public class ButtonsFragment extends Fragment {
                 ((MainActivity)getActivity()).showOplaty();
             }
         });
+        Button buttonNowaWiadomosc = fragView.findViewById(R.id.button3);
+        buttonNowaWiadomosc.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).showNowaWiadomosc();
+            }
+        });
         return fragView;
     }
 

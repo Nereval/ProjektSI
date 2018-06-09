@@ -1,5 +1,7 @@
 package wat.learning.android.si.daoprojektsi.Database;
 
+import java.sql.SQLException;
+
 /**
  * Created by Piotr on 27.03.2018.
  */
@@ -10,4 +12,5 @@ public interface Database {
     void UserPasswordReset(int lokatorId, String newPassword);
     //void UserLogout(int lokatorId);
     void GetMediaFromDb();
+    void pobierzMiesięczneOpłaty(String miesiac, String rok);
 }

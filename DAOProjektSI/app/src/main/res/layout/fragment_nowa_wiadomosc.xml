@@ -1,0 +1,68 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="wat.learning.android.si.daoprojektsi.Fragments.Main.NowaWiadomoscFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/odbiorca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/odbiorca"
+            />
+
+        <EditText
+            android:id="@+id/temat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/odbiorca"
+            android:hint="@string/temat"
+            />
+
+        <Button
+            android:id="@+id/dodaj_zalacznik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/dodaj_zalacznik"
+            />
+
+        <Button
+            android:id="@+id/wyslij"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/wyslij"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_above="@+id/wyslij"
+            android:layout_below="@+id/temat">
+
+            <EditText
+                android:id="@+id/tresc_wiadomosci"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ListView
+                android:id="@+id/zalaczniki"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"></ListView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
